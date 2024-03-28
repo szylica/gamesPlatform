@@ -29,7 +29,7 @@ public class UserLoginPage implements ActionListener{
 
     public UserLoginPage(HashMap<String, String> loginInfoOriginal){ 
         loginInfo = loginInfoOriginal;
-
+        //label settings
         userIDLabel.setBounds(50, 100, 75, 25);
         userPasswordLabel.setBounds(50, 150, 75, 25);
 

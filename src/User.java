@@ -16,8 +16,8 @@ public class User extends Client {
     
     public void addReview(Game name, int review){
         //to samo co w developerze
-        if (UserLoginPage.actuallyLogged!=null){
-            name.reviewRatings.put(UserLoginPage.actuallyLogged, review);
+        if (MainLibraryPage.actuallyLogged!=null){
+            name.reviewRatings.put(MainLibraryPage.actuallyLogged, review);
         }
         
     }

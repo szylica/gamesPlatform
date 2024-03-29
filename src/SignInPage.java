@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ public class SignInPage implements ActionListener{
 
     //declare every element on Sign In Page
     JFrame frame = new JFrame();
+
     JButton registerButton = new JButton("Login");
     JButton resetButton = new JButton("Reset");
     JTextField userIDField = new JTextField();
@@ -29,6 +31,7 @@ public class SignInPage implements ActionListener{
     JLabel messageLabel = new JLabel();
 
     public SignInPage(){ 
+        FrameManager.addFrame(frame);
         //Labels settings on Sign In Page
         userIDLabel.setBounds(50, 50, 75, 25);
         userNameLabel.setBounds(50, 100, 75,25);
@@ -101,11 +104,19 @@ public class SignInPage implements ActionListener{
             System.out.println("confirm Password:"+ userPasswordConfirmField.getPassword().toString());
             
             //testing if passwords are the same
-            if(userPasswordField.getPassword().equals(userPasswordConfirmField.getPassword())){
+            if(Arrays.equals(userPasswordField.getPassword(), userPasswordConfirmField.getPassword())){
+
                 String userPassword = String.valueOf(userPasswordField.getPassword());
                 User aa = new User(userName, userLastName, userID, userPassword);
                 messageLabel.setForeground(Color.green);
                 messageLabel.setText("Login successful");
+                MainLibraryPage.isLogged = true;
+                MainLibraryPage.actuallyLogged = userID;
+                MainLibraryPage.devOrUser = "user";
+                frame.dispose();
+                FrameManager.closeAllFrames();
+                MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
+                IDandPasswords.loginDev.put(userID, userPassword);
             }
             else{
                 messageLabel.setForeground(Color.red);

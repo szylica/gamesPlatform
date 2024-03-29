@@ -11,14 +11,25 @@ public class MainLibraryPage implements ActionListener{
 
     IDandPasswords idandPasswords = new IDandPasswords();
     JFrame frame = new JFrame();
+    JButton becomeDev = new JButton("Become Developer");
     JButton loginButton = new JButton("Log In");
     JButton registerButton = new JButton("Sign In");
+    JButton addGame = new JButton("Add Game");
     JLabel userIDLabel = new JLabel("Hello ");
 
     JPanel gamesPanel = new JPanel(); 
 
+    public static String devOrUser;
+    public static boolean isLogged = false;
+    public static String actuallyLogged = null;
 
     public MainLibraryPage(){
+
+        FrameManager.addFrame(frame);
+
+        becomeDev.setBounds(50, 25, 150,25);
+        becomeDev.setFocusable(false);
+        becomeDev.addActionListener(this);
 
         
         loginButton.setBounds(2450,25, 75, 25);
@@ -36,7 +47,7 @@ public class MainLibraryPage implements ActionListener{
 
         createGameButtons();
 
-
+        frame.add(becomeDev);
         frame.add(loginButton);
         frame.add(registerButton);
         frame.add(gamesPanel);
@@ -52,7 +63,12 @@ public class MainLibraryPage implements ActionListener{
     public void createGameButtons() {
         for (Game game : games) {
             JButton button = new JButton(game.getName());
-            // Tutaj możesz dodać ActionListener dla każdego przycisku, jeśli jest potrzebny
+            button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    
+                }
+            });
+
             button.setPreferredSize(new Dimension(150, 30));
             //setting buttons transparent
             button.setOpaque(false);
@@ -69,6 +85,11 @@ public class MainLibraryPage implements ActionListener{
     }
 
     public MainLibraryPage(String userID){
+        FrameManager.addFrame(frame);
+
+        becomeDev.setBounds(50, 25, 150,25);
+        becomeDev.setFocusable(false);
+        becomeDev.addActionListener(this);
 
         userIDLabel.setBounds(2375,25, 100, 25);
         userIDLabel.setFont(new Font(null, Font.PLAIN, 20));
@@ -93,13 +114,55 @@ public class MainLibraryPage implements ActionListener{
         frame.setVisible(true);
     }
 
+    //Developer main page constructor
+    //int devveloper variable only for recognize which contructor to use, user or dev
+    public MainLibraryPage(String userID, int developer){
+        FrameManager.addFrame(frame);
+
+        addGame.setBounds(50, 25, 150,25);
+        addGame.setFocusable(false);
+        addGame.addActionListener(this);
+
+
+        userIDLabel.setBounds(2375,25, 100, 25);
+        userIDLabel.setFont(new Font(null, Font.PLAIN, 20));
+        userIDLabel.setForeground((Color.green));
+        userIDLabel.setText("Hello dev " + userID);
+
+        gamesPanel.setBackground(Color.blue);
+        gamesPanel.setBounds(1000,200,200,750);
+        gamesPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        createGameButtons();
+
+        frame.add(addGame);
+        frame.add(userIDLabel);
+        frame.add(gamesPanel);
+
+        frame.getContentPane().setBackground(Color.darkGray);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setLayout(null);
+
+
+        frame.setVisible(true);
+    }
+
     public void actionPerformed(ActionEvent e){
         if (e.getSource()==loginButton){
-            UserLoginPage userLoginPage = new UserLoginPage(idandPasswords.getUserLoginInfo());
+            UserLoginPage userLoginPage = new UserLoginPage();
         }
 
         if (e.getSource()==registerButton){
             SignInPage userSignInPage = new SignInPage();
+        }
+
+        if (e.getSource()==becomeDev){
+            BecomeDevPage becomeDevPage = new BecomeDevPage();
+        }
+
+        if (e.getSource()==addGame){
+            //BecomeDevPage ;
         }
 
     }

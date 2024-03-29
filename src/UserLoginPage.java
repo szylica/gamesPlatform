@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.net.PasswordAuthentication;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -13,8 +14,7 @@ import javax.swing.JTextField;
 
 public class UserLoginPage implements ActionListener{
 
-    public static boolean isLogged = false;
-    public static String actuallyLogged = null;
+    
 
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
@@ -24,11 +24,16 @@ public class UserLoginPage implements ActionListener{
     JLabel userIDLabel = new JLabel("userID:");
     JLabel userPasswordLabel = new JLabel("Password:");
     JLabel messageLabel = new JLabel();
- 
-    HashMap<String, String> loginInfo = new HashMap<String, String>();
+    JCheckBox devAccCheckBox = new JCheckBox();
+    
 
-    public UserLoginPage(HashMap<String, String> loginInfoOriginal){ 
-        loginInfo = loginInfoOriginal;
+    public UserLoginPage(){ 
+        FrameManager.addFrame(frame);
+
+        devAccCheckBox.setText("Developer Account");
+        devAccCheckBox.setFocusable(false);
+        devAccCheckBox.setBounds(125, 200, 200, 25);
+        
         //label settings
         userIDLabel.setBounds(50, 100, 75, 25);
         userPasswordLabel.setBounds(50, 150, 75, 25);
@@ -39,18 +44,20 @@ public class UserLoginPage implements ActionListener{
         userIDField.setBounds(125, 100, 200, 25);
         userPasswordField.setBounds(125, 150, 200, 25);
 
-        loginButton.setBounds(125, 200, 100, 25);
+        loginButton.setBounds(125, 250, 100, 25);
         loginButton.setFocusable(false);
         loginButton.addActionListener(this);
-        resetButton.setBounds(225, 200, 100, 25);
+        resetButton.setBounds(225, 250, 100, 25);
         resetButton.setFocusable(false);
         resetButton.addActionListener(this);
 
+        
         frame.add(messageLabel);
         frame.add(userIDLabel);
         frame.add(userPasswordLabel);
         frame.add(userIDField);
         frame.add(userPasswordField);
+        frame.add(devAccCheckBox);
         frame.add(messageLabel);
         frame.add(messageLabel);
         frame.add(loginButton);
@@ -70,17 +77,40 @@ public class UserLoginPage implements ActionListener{
             userIDField.setText("");
             userPasswordField.setText("");
         }
-        if(e.getSource()==loginButton){
+        if(e.getSource()==loginButton && devAccCheckBox.isSelected()){
             String userID = userIDField.getText();
             String userPassword = String.valueOf(userPasswordField.getPassword());
-
-            if (loginInfo.containsKey(userID)){
-                if (loginInfo.get(userID).equals(userPassword)){
+            if (IDandPasswords.loginDev.containsKey(userID)){
+                if (IDandPasswords.loginDev.get(userID).equals(userPassword)){
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");
                     frame.dispose();
-                    isLogged = true;
-                    actuallyLogged = userID;
+                    MainLibraryPage.isLogged = true;
+                    MainLibraryPage.actuallyLogged = userID;
+                    MainLibraryPage.devOrUser = "dev";
+                    FrameManager.closeAllFrames();
+                    MainLibraryPage mainLibraryPage = new MainLibraryPage(userID, 1);
+
+                }
+                else{
+                    messageLabel.setForeground(Color.red);
+                    messageLabel.setText("Wrong password");
+                }
+            }
+        }
+        if(e.getSource()==loginButton && !devAccCheckBox.isSelected()){
+            String userID = userIDField.getText();
+            String userPassword = String.valueOf(userPasswordField.getPassword());
+
+            if (IDandPasswords.loginUser.containsKey(userID)){
+                if (IDandPasswords.loginUser.get(userID).equals(userPassword)){
+                    messageLabel.setForeground(Color.green);
+                    messageLabel.setText("Login successful");
+                    frame.dispose();
+                    MainLibraryPage.isLogged = true;
+                    MainLibraryPage.actuallyLogged = userID;
+                    MainLibraryPage.devOrUser = "user";
+                    FrameManager.closeAllFrames();
                     MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
 
                 }
@@ -96,8 +126,12 @@ public class UserLoginPage implements ActionListener{
 
 
         }
+        else{
+            messageLabel.setForeground(Color.red);
+            messageLabel.setText("Something is wrong");
+        }
     }
-
+}
     
 
-}
+

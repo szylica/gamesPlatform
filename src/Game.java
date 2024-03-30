@@ -28,11 +28,20 @@ public class Game implements ActionListener{
     JButton registerButton = new JButton("Sign In");
     JButton addGame = new JButton("Add Game");
     JLabel userIDLabel = new JLabel("Hello ");
+    JLabel titleLabel = new JLabel("");
+    JLabel gameDeveloperLabel = new JLabel("");
+    JLabel descriptionLabel = new JLabel("");
+    
 
 
-    public Game(){
+    public Game(String developer, String name, String description, double prize){
 
-        JPanel game = new JPanel();
+        this.developer = developer;
+        this.name = name;
+        this.description = description;
+        this.prize = prize;
+        
+        JPanel gamePanel = new JPanel();
         //DEV SITE
         if (MainLibraryPage.isLogged && MainLibraryPage.devOrUser == "dev"){
             
@@ -85,6 +94,31 @@ public class Game implements ActionListener{
         FrameManager.addFrame(frame);
 
         //THINGS ON SITE WHICH IS THE SAME FOR EVERY PROPERTIES
+        gamePanel.setBackground(Color.blue);
+        gamePanel.setBounds(550,200,1500,750);
+        gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
+
+        gameDeveloperLabel.setText("Game developer: "+ this.developer);
+        gameDeveloperLabel.setForeground(Color.white);
+        gameDeveloperLabel.setFont(new Font(gameDeveloperLabel.getFont().getName(), Font.PLAIN, 15));
+        
+        titleLabel.setText(this.name);
+        titleLabel.setForeground(Color.white);
+        titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.PLAIN, 50));
+
+        descriptionLabel.setText(this.description);
+        descriptionLabel.setBounds(200, 600, 1000,1000);
+        descriptionLabel.setForeground(Color.white);
+        descriptionLabel.setFont(new Font(titleLabel.getFont().getName(), Font.PLAIN, 35));
+
+    
+        gamePanel.add(gameDeveloperLabel);
+        gamePanel.add(titleLabel);
+        gamePanel.add(descriptionLabel);
+
+        frame.add(userIDLabel);
+        frame.add(gamePanel);
+        
         frame.getContentPane().setBackground(Color.darkGray);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -95,9 +129,9 @@ public class Game implements ActionListener{
     }
 
     //GAME CONSTRUCTOR, CREATING OBJECT
-    public Game(String developerG, String Game){
-        developer = developerG;
-        name = Game;
+    public Game(String developer, String gameName){
+        this.developer = developer;
+        name = gameName;
     }
 
     //NAME SETTER
@@ -155,13 +189,8 @@ public class Game implements ActionListener{
         }
 
         if (e.getSource()==addGame){
-            //BecomeDevPage ;
+            CreateGamePage createGamePage = new CreateGamePage();
         }
     }
 
-
-
-
-
-    
 }

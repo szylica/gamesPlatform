@@ -14,9 +14,9 @@ import javax.swing.JTextField;
 public class SignInPage implements ActionListener{
 
     //declare every element on Sign In Page
-    JFrame frame = new JFrame();
+    JFrame frame = new JFrame("Register window");
 
-    JButton registerButton = new JButton("Login");
+    JButton registerButton = new JButton("Register");
     JButton resetButton = new JButton("Reset");
     JTextField userIDField = new JTextField();
     JTextField userNameField = new JTextField();
@@ -39,7 +39,7 @@ public class SignInPage implements ActionListener{
         userPasswordLabel.setBounds(50, 200, 75, 25);
         userPasswordConfirmLabel.setBounds(50, 250, 75, 25);
 
-        messageLabel.setBounds(125,250, 250, 35);
+        messageLabel.setBounds(50,325, 350, 35);
         messageLabel.setFont(new Font(null, Font.ITALIC, 25));
 
         //Fields settings on Sign In Page
@@ -102,25 +102,37 @@ public class SignInPage implements ActionListener{
             String userLastName = userLastNameField.getText();
             System.out.println("Password:"+ userPasswordField.getPassword().toString());
             System.out.println("confirm Password:"+ userPasswordConfirmField.getPassword().toString());
-            
-            //testing if passwords are the same
-            if(Arrays.equals(userPasswordField.getPassword(), userPasswordConfirmField.getPassword())){
+            System.out.println("UserID: "+ userIDField.getText());
+            System.out.println(userName);
+            System.out.println(userLastName);
 
-                String userPassword = String.valueOf(userPasswordField.getPassword());
-                User aa = new User(userName, userLastName, userID, userPassword);
-                messageLabel.setForeground(Color.green);
-                messageLabel.setText("Login successful");
-                MainLibraryPage.isLogged = true;
-                MainLibraryPage.actuallyLogged = userID;
-                MainLibraryPage.devOrUser = "user";
-                frame.dispose();
-                FrameManager.closeAllFrames();
-                MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
-                IDandPasswords.loginDev.put(userID, userPassword);
+            
+            if(!userID.isEmpty() && !userName.isEmpty() && !userLastName.isEmpty()){
+            //testing if passwords are the same
+                if(Arrays.equals(userPasswordField.getPassword(), userPasswordConfirmField.getPassword())){
+
+                    String userPassword = String.valueOf(userPasswordField.getPassword());
+
+                    User aa = new User(userName, userLastName, userID, userPassword);
+
+                    messageLabel.setForeground(Color.green);
+                    messageLabel.setText("Login successful");
+
+                    MainLibraryPage.isLogged = true;
+                    MainLibraryPage.actuallyLogged = userID;
+                    MainLibraryPage.devOrUser = "user";
+                    FrameManager.closeAllFrames();
+                    MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
+                    IDandPasswords.loginDev.put(userID, userPassword);
+                }
+                else{
+                    messageLabel.setForeground(Color.red);
+                    messageLabel.setText("passwords are not the same");
+                }
             }
-            else{
+            else {
                 messageLabel.setForeground(Color.red);
-                messageLabel.setText("passwords are not the same");
+                messageLabel.setText("All fields have to be filled");
             }
 
             

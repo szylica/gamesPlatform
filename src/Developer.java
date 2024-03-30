@@ -1,7 +1,10 @@
 import javax.swing.JFrame;
 
+
+
 public class Developer extends Client {
     
+    //COMPONENTS
     String company;
     String adress;
     static int developerCounter;

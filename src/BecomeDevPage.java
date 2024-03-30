@@ -14,17 +14,20 @@ import javax.swing.JTextField;
 public class BecomeDevPage implements ActionListener{
 
     //declare every element on Sign In Page
-    JFrame frame = new JFrame();
+    JFrame frame = new JFrame("Become developer");
 
     JButton registerButton = new JButton("Login");
     JButton resetButton = new JButton("Reset");
+
     JTextField devIDField = new JTextField();
     JTextField devNameField = new JTextField();
     JTextField devLastNameField = new JTextField();
     JTextField devCompanyField = new JTextField();
     JTextField devAddressField = new JTextField();
+
     JPasswordField devPasswordField = new JPasswordField();
     JPasswordField devPasswordConfirmField = new JPasswordField();
+
     JLabel devIDLabel = new JLabel("userID:");
     JLabel devNameLabel = new JLabel("Name:");
     JLabel devLastNameLabel = new JLabel("Last name:");
@@ -114,15 +117,14 @@ public class BecomeDevPage implements ActionListener{
             String devLastName = devLastNameField.getText();
             String devCompany = devCompanyField.getText();
             String devAddress = devAddressField.getText();
-            System.out.println("Password:"+ devPasswordField.getPassword().toString());
-            System.out.println("confirm Password:"+ devPasswordConfirmField.getPassword().toString());
+        
             
             //testing if passwords are the same
             if(Arrays.equals(devPasswordField.getPassword(), devPasswordConfirmField.getPassword())){
 
                 String devPassword = String.valueOf(devPasswordField.getPassword());
 
-                //CLOSING ALL OTHER EXISTING FRAMES
+                //CLOSING ALL EXISTING WINDOWS(FRAMES)
                 FrameManager.closeAllFrames();
 
                 Developer aa = new Developer(devName, devLastName, devID, devPassword, devCompany, devAddress);
@@ -131,12 +133,16 @@ public class BecomeDevPage implements ActionListener{
                 messageLabel.setForeground(Color.green);
                 messageLabel.setText("Login successful");
 
+
+                //CHANGING GLOBAL VARIABLES
                 MainLibraryPage.isLogged = true;
                 MainLibraryPage.actuallyLogged = devID;
                 MainLibraryPage.devOrUser = "dev";
 
-                
-                MainLibraryPage mainLibraryPage = new MainLibraryPage(devID);
+                //OPENING MAIN WINDOW
+                MainLibraryPage mainLibraryPage = new MainLibraryPage(devID, 1);
+
+                //PUTTING INFO ABOUT DEVELOPER TO DATABASE
                 IDandPasswords.loginDev.put(devID, devPassword);
                 
             }

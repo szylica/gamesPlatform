@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+
+//HELPER CLASS
 public class FrameManager {
     private static ArrayList<JFrame> frames = new ArrayList<>();
 

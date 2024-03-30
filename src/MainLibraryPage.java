@@ -40,7 +40,7 @@ public class MainLibraryPage implements ActionListener{
         registerButton.setFocusable(false);
         registerButton.addActionListener(this);
         
-        gamesPanel.setBackground(Color.blue);
+        gamesPanel.setBackground(Color.gray);
         gamesPanel.setBounds(1000,200,200,750);
         gamesPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -58,31 +58,9 @@ public class MainLibraryPage implements ActionListener{
         frame.setLayout(null);
         frame.setVisible(true);
 
-    }
-
-    public void createGameButtons() {
-        for (Game game : games) {
-            JButton button = new JButton(game.getName());
-            button.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    
-                }
-            });
-
-            button.setPreferredSize(new Dimension(150, 30));
-            //setting buttons transparent
-            button.setOpaque(false);
-            button.setContentAreaFilled(false);
-            button.setBorderPainted(false);
-            //
-            button.setForeground(Color.WHITE);
-            button.setFocusable(false);
-
-            gamesPanel.add(button);
-            
-        }
 
     }
+
 
     public MainLibraryPage(String userID){
         FrameManager.addFrame(frame);
@@ -96,7 +74,7 @@ public class MainLibraryPage implements ActionListener{
         userIDLabel.setForeground((Color.green));
         userIDLabel.setText("Hello " + userID);
 
-        gamesPanel.setBackground(Color.blue);
+        gamesPanel.setBackground(Color.gray);
         gamesPanel.setBounds(1000,200,200,750);
         gamesPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -109,9 +87,11 @@ public class MainLibraryPage implements ActionListener{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(null);
-
-
         frame.setVisible(true);
+
+        isLogged = true;
+        devOrUser = "user";
+        actuallyLogged = userID;
     }
 
     //Developer main page constructor
@@ -124,12 +104,12 @@ public class MainLibraryPage implements ActionListener{
         addGame.addActionListener(this);
 
 
-        userIDLabel.setBounds(2375,25, 100, 25);
+        userIDLabel.setBounds(2350,25, 200, 25);
         userIDLabel.setFont(new Font(null, Font.PLAIN, 20));
         userIDLabel.setForeground((Color.green));
         userIDLabel.setText("Hello dev " + userID);
 
-        gamesPanel.setBackground(Color.blue);
+        gamesPanel.setBackground(Color.gray);
         gamesPanel.setBounds(1000,200,200,750);
         gamesPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
@@ -143,10 +123,38 @@ public class MainLibraryPage implements ActionListener{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLayout(null);
-
-
         frame.setVisible(true);
+
+        isLogged = true;
+        devOrUser = "dev";
+        actuallyLogged = userID;
     }
+
+
+    public void createGameButtons() {
+        for (Game game : games) {
+            JButton button = new JButton(game.getName());
+            button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                        
+                }
+            });
+
+            button.setPreferredSize(new Dimension(150, 30));
+            //setting buttons transparent
+            button.setOpaque(false);
+            button.setContentAreaFilled(false);
+            button.setBorderPainted(false);
+            //
+            button.setForeground(Color.WHITE);
+            button.setFocusable(false);
+
+            gamesPanel.add(button);
+                
+        }
+
+    }
+
 
     public void actionPerformed(ActionEvent e){
         if (e.getSource()==loginButton){
@@ -162,7 +170,7 @@ public class MainLibraryPage implements ActionListener{
         }
 
         if (e.getSource()==addGame){
-            //BecomeDevPage ;
+            CreateGamePage createGamePage = new CreateGamePage();
         }
 
     }

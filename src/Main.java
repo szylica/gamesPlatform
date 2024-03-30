@@ -19,9 +19,11 @@ public class Main {
         MainLibraryPage.games.add(new Game("aaaa","wiedzmin3"));
         
         
+        //Game gra = new Game("cda", "wiedzmin", "asdsadassda", 12.54);
 
-        IDandPasswords idandPasswords = new IDandPasswords();
-        MainLibraryPage aaa = new MainLibraryPage();
+        //IDandPasswords idandPasswords = new IDandPasswords();
+        MainLibraryPage aaa = new MainLibraryPage("przmek",1);
+        //CreateGamePage nwe = new CreateGamePage();
     }
 
 

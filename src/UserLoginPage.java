@@ -15,15 +15,18 @@ import javax.swing.JTextField;
 public class UserLoginPage implements ActionListener{
 
     
-
     JFrame frame = new JFrame();
+
     JButton loginButton = new JButton("Login");
     JButton resetButton = new JButton("Reset");
+
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
+
     JLabel userIDLabel = new JLabel("userID:");
     JLabel userPasswordLabel = new JLabel("Password:");
     JLabel messageLabel = new JLabel();
+    
     JCheckBox devAccCheckBox = new JCheckBox();
     
 
@@ -74,27 +77,36 @@ public class UserLoginPage implements ActionListener{
 
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==resetButton){
+            
             userIDField.setText("");
             userPasswordField.setText("");
         }
         if(e.getSource()==loginButton && devAccCheckBox.isSelected()){
+            
             String userID = userIDField.getText();
             String userPassword = String.valueOf(userPasswordField.getPassword());
+
             if (IDandPasswords.loginDev.containsKey(userID)){
+
                 if (IDandPasswords.loginDev.get(userID).equals(userPassword)){
+
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");
-                    frame.dispose();
+
                     MainLibraryPage.isLogged = true;
                     MainLibraryPage.actuallyLogged = userID;
                     MainLibraryPage.devOrUser = "dev";
+
                     FrameManager.closeAllFrames();
+
                     MainLibraryPage mainLibraryPage = new MainLibraryPage(userID, 1);
 
                 }
                 else{
+
                     messageLabel.setForeground(Color.red);
                     messageLabel.setText("Wrong password");
+
                 }
             }
         }
@@ -104,13 +116,17 @@ public class UserLoginPage implements ActionListener{
 
             if (IDandPasswords.loginUser.containsKey(userID)){
                 if (IDandPasswords.loginUser.get(userID).equals(userPassword)){
+
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");
-                    frame.dispose();
+
+
                     MainLibraryPage.isLogged = true;
                     MainLibraryPage.actuallyLogged = userID;
                     MainLibraryPage.devOrUser = "user";
+
                     FrameManager.closeAllFrames();
+
                     MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
 
                 }

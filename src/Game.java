@@ -22,17 +22,13 @@ public class Game implements ActionListener{
     ArrayList<String> categories = new ArrayList<String>();
     
     //SITE OF EVERY GAME, SAME AS MainLibraryPage BUT FOR EVERY PROPERTIES(IF LOGGED, LOGGED DEV, LOGGED USER) OTHER BUTTONS IN THE UPPER GUI 
-    JFrame frame = new JFrame();
-    JButton becomeDev = new JButton("Become Developer");
-    JButton loginButton = new JButton("Log In");
-    JButton registerButton = new JButton("Sign In");
-    JButton addGame = new JButton("Add Game");
-    JLabel userIDLabel = new JLabel("Hello ");
+
+
     JLabel titleLabel = new JLabel("");
     JLabel gameDeveloperLabel = new JLabel("");
     JLabel descriptionLabel = new JLabel("");
     
-
+    JPanel gamePanel = new JPanel();
 
     public Game(String developer, String name, String description, double prize){
 
@@ -41,59 +37,18 @@ public class Game implements ActionListener{
         this.description = description;
         this.prize = prize;
         
-        JPanel gamePanel = new JPanel();
-        //DEV SITE
-        if (MainLibraryPage.isLogged && MainLibraryPage.devOrUser == "dev"){
-            
-            addGame.setBounds(50, 25, 150,25);
-            addGame.setFocusable(false);
-            addGame.addActionListener(this);
+        initialize();
+    }
 
-            userIDLabel.setBounds(2375,25, 100, 25);
-            userIDLabel.setFont(new Font(null, Font.PLAIN, 20));
-            userIDLabel.setForeground((Color.green));
-            userIDLabel.setText("Hello dev " + MainLibraryPage.actuallyLogged);
+    //GAME CONSTRUCTOR, CREATING OBJECT
+    public Game(String developer, String gameName){
+        this.developer = developer;
+        name = gameName;
+    }
 
-            frame.add(addGame);
-        }
+    //INITIALIZE FDR LOGGED OUT
+    private void initialize(){
 
-        //USER SITE
-        if (MainLibraryPage.isLogged && MainLibraryPage.devOrUser == "user"){
-            becomeDev.setBounds(50, 25, 150,25);
-            becomeDev.setFocusable(false);
-            becomeDev.addActionListener(this);
-    
-            userIDLabel.setBounds(2375,25, 100, 25);
-            userIDLabel.setFont(new Font(null, Font.PLAIN, 20));
-            userIDLabel.setForeground((Color.green));
-            userIDLabel.setText("Hello " + MainLibraryPage.actuallyLogged);
-            
-            frame.add(becomeDev);
-        }
-
-        //LOGGED OUT SITE
-        if(!MainLibraryPage.isLogged){
-            becomeDev.setBounds(50, 25, 150,25);
-            becomeDev.setFocusable(false);
-            becomeDev.addActionListener(this);
-
-        
-            loginButton.setBounds(2450,25, 75, 25);
-            loginButton.setFocusable(false);
-            loginButton.addActionListener(this);
-
-            registerButton.setBounds(2375,25, 75, 25);
-            registerButton.setFocusable(false);
-            registerButton.addActionListener(this);
-
-            frame.add(becomeDev);
-            frame.add(loginButton);
-            frame.add(registerButton);
-        }
-        
-        FrameManager.addFrame(frame);
-
-        //THINGS ON SITE WHICH IS THE SAME FOR EVERY PROPERTIES
         gamePanel.setBackground(Color.blue);
         gamePanel.setBounds(550,200,1500,750);
         gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
@@ -109,30 +64,40 @@ public class Game implements ActionListener{
         descriptionLabel.setText(this.description);
         descriptionLabel.setBounds(200, 600, 1000,1000);
         descriptionLabel.setForeground(Color.white);
-        descriptionLabel.setFont(new Font(titleLabel.getFont().getName(), Font.PLAIN, 35));
+        descriptionLabel.setFont(new Font(descriptionLabel.getFont().getName(), Font.PLAIN, 35));
 
-    
         gamePanel.add(gameDeveloperLabel);
         gamePanel.add(titleLabel);
         gamePanel.add(descriptionLabel);
 
-        frame.add(userIDLabel);
-        frame.add(gamePanel);
         
-        frame.getContentPane().setBackground(Color.darkGray);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setLayout(null);
+        if(!MainLibraryPage.isLogged){
 
-        frame.setVisible(true);
+            PageForLoggedOut frame = new PageForLoggedOut();
+            FrameManager.addFrame(frame);
+            frame.add(gamePanel);
+
+        }
+        else if (MainLibraryPage.isLogged && MainLibraryPage.devOrUser == "user"){
+
+            PageForUser frame = new PageForUser(MainLibraryPage.actuallyLogged);
+            FrameManager.addFrame(frame);
+            frame.add(gamePanel);
+
+        }
+        else if (MainLibraryPage.isLogged && MainLibraryPage.devOrUser == "dev"){
+
+            PageForDev frame = new PageForDev(MainLibraryPage.actuallyLogged);
+            FrameManager.addFrame(frame);
+            frame.add(gamePanel);
+
+        }
 
     }
 
-    //GAME CONSTRUCTOR, CREATING OBJECT
-    public Game(String developer, String gameName){
-        this.developer = developer;
-        name = gameName;
-    }
+    
+    
+
 
     //NAME SETTER
     public void setName(String name) {
@@ -176,21 +141,7 @@ public class Game implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource()==loginButton){
-            UserLoginPage userLoginPage = new UserLoginPage();
-        }
-
-        if (e.getSource()==registerButton){
-            SignInPage userSignInPage = new SignInPage();
-        }
-
-        if (e.getSource()==becomeDev){
-            BecomeDevPage becomeDevPage = new BecomeDevPage();
-        }
-
-        if (e.getSource()==addGame){
-            CreateGamePage createGamePage = new CreateGamePage();
-        }
+        
     }
 
 }

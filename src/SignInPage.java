@@ -109,30 +109,34 @@ public class SignInPage implements ActionListener{
             
             if(!userID.isEmpty() && !userName.isEmpty() && !userLastName.isEmpty()){
             //testing if passwords are the same
-                if(Arrays.equals(userPasswordField.getPassword(), userPasswordConfirmField.getPassword())){
+                if(!IDandPasswords.loginUser.containsKey(userID)){
+                    if(Arrays.equals(userPasswordField.getPassword(), userPasswordConfirmField.getPassword())){
 
-                    String userPassword = String.valueOf(userPasswordField.getPassword());
+                        String userPassword = String.valueOf(userPasswordField.getPassword());
 
-                    User aa = new User(userName, userLastName, userID, userPassword);
+                        User aa = new User(userName, userLastName, userID, userPassword);
 
-                    messageLabel.setForeground(Color.green);
-                    messageLabel.setText("Login successful");
+                        messageLabel.setForeground(Color.green);
+                        messageLabel.setText("Login successful");
 
-                    MainLibraryPage.isLogged = true;
-                    MainLibraryPage.actuallyLogged = userID;
-                    MainLibraryPage.devOrUser = "user";
-                    FrameManager.closeAllFrames();
-                    MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
-                    IDandPasswords.loginDev.put(userID, userPassword);
+                        
+                        FrameManager.closeAllFrames();
+                        MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
+                        IDandPasswords.loginUser.put(userID, userPassword);
+                    }
+                    else{
+                        messageLabel.setForeground(Color.red);
+                        messageLabel.setText("passwords are not the same");
+                    }
                 }
-                else{
+                else {
                     messageLabel.setForeground(Color.red);
-                    messageLabel.setText("passwords are not the same");
+                    messageLabel.setText("All fields have to be filled");
                 }
             }
-            else {
+            else{
                 messageLabel.setForeground(Color.red);
-                messageLabel.setText("All fields have to be filled");
+                messageLabel.setText("This username is already taken");
             }
 
             

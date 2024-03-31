@@ -37,19 +37,15 @@ public class Game implements ActionListener{
         this.description = description;
         this.prize = prize;
         
-        initialize();
     }
 
-    //GAME CONSTRUCTOR, CREATING OBJECT
-    public Game(String developer, String gameName){
-        this.developer = developer;
-        name = gameName;
-    }
+    
 
     //INITIALIZE FDR LOGGED OUT
-    private void initialize(){
+    public void initialize(){
 
-        gamePanel.setBackground(Color.blue);
+        //PANEL WITH GAME INFORMATION ( TITLE, PRIZE, DESCRIPTION, DEVELOPER )
+        gamePanel.setBackground(Color.gray);
         gamePanel.setBounds(550,200,1500,750);
         gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
 

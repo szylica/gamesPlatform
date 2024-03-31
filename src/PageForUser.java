@@ -9,7 +9,8 @@ import javax.swing.JLabel;
 
 public class PageForUser extends JFrame implements ActionListener {
 
-    JButton becomeDev = new JButton("Become developer");
+    JButton logOutButton = new JButton("Log out");
+    JButton becomeDevButton = new JButton("Become developer");
     JLabel userIDLabel = new JLabel("hello");
 
 
@@ -19,17 +20,26 @@ public class PageForUser extends JFrame implements ActionListener {
     }
 
     private void initialize(String userID){
-        becomeDev.setBounds(50, 25, 150,25);
-        becomeDev.setFocusable(false);
-        becomeDev.addActionListener(this);
+        becomeDevButton.setBounds(265, 55, 150,25);
+        becomeDevButton.setFocusable(false);
+        becomeDevButton.addActionListener(this);
 
-        userIDLabel.setBounds(2375,25, 150, 25);
+        logOutButton.setBounds(2400, 55, 100, 25);
+        logOutButton.setFocusable(false);
+        logOutButton.addActionListener(this);
+
+        HomeButton homeButton = new HomeButton();
+
+        userIDLabel.setBounds(2200,55, 150, 25);
         userIDLabel.setFont(new Font(null, Font.PLAIN, 20));
         userIDLabel.setForeground((Color.green));
         userIDLabel.setText("Hello " + userID);
 
+        
+        add(becomeDevButton);
+        add(logOutButton);
+        add(homeButton);
         add(userIDLabel);
-        add(becomeDev);
 
         getContentPane().setBackground(Color.darkGray);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +51,15 @@ public class PageForUser extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        BecomeDevPage becomeDevPage = new BecomeDevPage();
+        if(e.getSource() == logOutButton){
+            FrameManager.closeAllFrames();
+            MainLibraryPage mainLibraryPage = new MainLibraryPage();
+        }
+        if (e.getSource() == becomeDevButton){
+            BecomeDevPage becomeDevPage = new BecomeDevPage();
+        }
+
     }
+
 
 }

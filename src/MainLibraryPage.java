@@ -80,7 +80,7 @@ public class MainLibraryPage implements ActionListener{
             JButton button = new JButton(game.getName());
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                        
+                    game.initialize();
                 }
             });
 

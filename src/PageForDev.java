@@ -8,9 +8,10 @@ public class PageForDev extends JFrame implements ActionListener{
 
 
     
-    JButton addGame = new JButton("Create Game");
+    JButton addGameButton = new JButton("Create Game");
+    JButton logOutButton = new JButton("Log out");
+    JButton homeButton = new JButton();
     JLabel userIDLabel = new JLabel("hello ");
-
 
     public PageForDev(String userID){
         initialize(userID);
@@ -20,19 +21,24 @@ public class PageForDev extends JFrame implements ActionListener{
 
     private void initialize(String userID){
 
+        addGameButton.setBounds(265, 55, 150,25);
+        addGameButton.setFocusable(false);
+        addGameButton.addActionListener(this);
+        
+        logOutButton.setBounds(2400, 55, 100, 25);
+        logOutButton.setFocusable(false);
+        logOutButton.addActionListener(this);
 
+        HomeButton homeButton = new HomeButton();
 
-        addGame.setBounds(50, 25, 150,25);
-        addGame.setFocusable(false);
-        addGame.addActionListener(this);
-
-
-        userIDLabel.setBounds(2350,25, 200, 25);
+        userIDLabel.setBounds(2200,55, 200, 25);
         userIDLabel.setFont(new Font(null, Font.PLAIN, 20));
         userIDLabel.setForeground((Color.green));
         userIDLabel.setText("Hello dev " + userID);
 
-        add(addGame);
+        add(addGameButton);
+        add(logOutButton);
+        add(homeButton);
         add(userIDLabel);
 
         setLayout(null);
@@ -46,7 +52,19 @@ public class PageForDev extends JFrame implements ActionListener{
 
     
     public void actionPerformed(ActionEvent e) {
-        CreateGamePage createGamePage = new CreateGamePage();
+        if (e.getSource() == homeButton){
+            FrameManager.closeAllFrames();
+            MainLibraryPage mainLibraryPage = new MainLibraryPage(MainLibraryPage.actuallyLogged, 1);
+        }
+        
+        if (e.getSource() == addGameButton){
+            CreateGamePage createGamePage = new CreateGamePage();
+        }
+
+        if (e.getSource() == logOutButton){
+            FrameManager.closeAllFrames();
+            MainLibraryPage mainLibraryPage = new MainLibraryPage();
+        }
     }
 
 }

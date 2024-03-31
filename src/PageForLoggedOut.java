@@ -16,20 +16,22 @@ public class PageForLoggedOut extends JFrame implements ActionListener {
     }
 
     private void initialize(){
-        becomeDevButton.setBounds(50, 25, 150,25);
+        becomeDevButton.setBounds(265, 55, 150,25);
         becomeDevButton.setFocusable(false);
         becomeDevButton.addActionListener(this);
 
+        HomeButton homeButton = new HomeButton();
         
-        loginButton.setBounds(2450,25, 75, 25);
+        loginButton.setBounds(2400,55, 75, 25);
         loginButton.setFocusable(false);
         loginButton.addActionListener(this);
 
-        registerButton.setBounds(2375,25, 75, 25);
+        registerButton.setBounds(2325,55, 75, 25);
         registerButton.setFocusable(false);
         registerButton.addActionListener(this);
 
         add(becomeDevButton);
+        add(homeButton);
         add(loginButton);
         add(registerButton);
 

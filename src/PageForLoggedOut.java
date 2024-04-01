@@ -9,7 +9,7 @@ public class PageForLoggedOut extends JFrame implements ActionListener {
 
     JButton becomeDevButton = new JButton("Become developer");
     JButton loginButton = new JButton("Log In");
-    JButton registerButton = new JButton("Sing In");
+    JButton registerButton = new JButton("Sign In");
 
     public PageForLoggedOut(){
         initialize();

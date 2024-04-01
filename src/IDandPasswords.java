@@ -1,19 +1,14 @@
 import java.util.HashMap;
 
 public class IDandPasswords {
-    static HashMap<String, String> loginDev = new HashMap<String, String>();
-    static HashMap<String, String> loginUser = new HashMap<String, String>();
-
-    IDandPasswords(){
-        loginUser.put("Bro","pizza");
-        loginDev.put("nibba","123");
-    }
+    static HashMap<String, Pair<String, Developer>> loginPasswordDev = new HashMap<>();
+    static HashMap<String, Pair<String, User>> loginPasswordUser = new HashMap<>();
 
     protected HashMap getDevLoginInfo(){
-        return loginDev;
+        return loginPasswordDev;
     }
 
     protected HashMap getUserLoginInfo(){
-        return loginUser;
+        return loginPasswordUser;
     }
 }

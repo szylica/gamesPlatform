@@ -7,20 +7,24 @@ import java.util.ArrayList;
 
 public class MainLibraryPage implements ActionListener{
     
+    //LIST OF ALL GAMES IN THE SHOP
     static ArrayList<Game> games = new ArrayList<Game>();
 
     IDandPasswords idandPasswords = new IDandPasswords();
 
     JPanel gamesPanel = new JPanel(); 
 
+    //FLAGS
     public static String devOrUser;
     public static boolean isLogged = false;
     public static String actuallyLogged = null;
 
+    //CONSTRUCTOR FOR MAIN PAGE FOR LOGGED OUT
     public MainLibraryPage(){
 
-
         PageForLoggedOut frame = new PageForLoggedOut();
+
+        //FrameManager A CLASS WHICH HELPS ME TO CLOSE ALL WINDOWS WHEN I NEED IT 
         FrameManager.addFrame(frame);
         
         gamesPanel.setBackground(Color.gray);
@@ -32,7 +36,7 @@ public class MainLibraryPage implements ActionListener{
         frame.add(gamesPanel);
     }
 
-
+    //CONSTRUCTOR FOR MAIN PAG FOR LOGGED USER
     public MainLibraryPage(String userID){
         
         PageForUser frame = new PageForUser(userID);
@@ -67,14 +71,12 @@ public class MainLibraryPage implements ActionListener{
 
         frame.add(gamesPanel);
 
-        frame.setLayout(null);
-
         isLogged = true;
         devOrUser = "dev";
         actuallyLogged = userID;
     }
 
-
+    //CREATING BUTTONS ON THE PAGE FOR ALL GAMES WHICH ARE IN THE SHOP
     public void createGameButtons() {
         for (Game game : games) {
             JButton button = new JButton(game.getName());
@@ -98,11 +100,7 @@ public class MainLibraryPage implements ActionListener{
         }
 
     }
-
-
     public void actionPerformed(ActionEvent e){
 
     }
-
-
 }

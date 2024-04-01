@@ -38,11 +38,11 @@ public class HomeButton extends JButton implements ActionListener{
         if(MainLibraryPage.isLogged){
             if(MainLibraryPage.devOrUser == "dev"){
                 FrameManager.closeAllFrames();
-                MainLibraryPage mainLibraryPage = new MainLibraryPage(MainLibraryPage.actuallyLogged);
+                MainLibraryPage mainLibraryPage = new MainLibraryPage(MainLibraryPage.actuallyLogged, 1);
             }
             if(MainLibraryPage.devOrUser == "user"){
                 FrameManager.closeAllFrames();
-                MainLibraryPage mainLibraryPage = new MainLibraryPage(MainLibraryPage.actuallyLogged, 1);
+                MainLibraryPage mainLibraryPage = new MainLibraryPage(MainLibraryPage.actuallyLogged);
             }
 
         }
@@ -51,6 +51,6 @@ public class HomeButton extends JButton implements ActionListener{
             MainLibraryPage mainLibraryPage = new MainLibraryPage();
         }
         
-
     }
+    
 }

@@ -1,9 +1,8 @@
-import java.util.HashMap;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.PasswordAuthentication;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -86,9 +85,9 @@ public class UserLoginPage implements ActionListener{
             String userID = userIDField.getText();
             String userPassword = String.valueOf(userPasswordField.getPassword());
 
-            if (IDandPasswords.loginDev.containsKey(userID)){
+            if (IDandPasswords.loginPasswordDev.containsKey(userID)){
 
-                if (IDandPasswords.loginDev.get(userID).equals(userPassword)){
+                if (IDandPasswords.loginPasswordDev.get(userID).equals(userPassword)){
 
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");
@@ -114,8 +113,8 @@ public class UserLoginPage implements ActionListener{
             String userID = userIDField.getText();
             String userPassword = String.valueOf(userPasswordField.getPassword());
 
-            if (IDandPasswords.loginUser.containsKey(userID)){
-                if (IDandPasswords.loginUser.get(userID).equals(userPassword)){
+            if (IDandPasswords.loginPasswordUser.containsKey(userID)){
+                if (IDandPasswords.loginPasswordUser.get(userID).equals(userPassword)){
 
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");

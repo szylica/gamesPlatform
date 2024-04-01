@@ -21,11 +21,11 @@ public class Main {
         
         //Game gra = new Game("cda", "wiedzmin", "asdsadassda", 12.54);
 
-        IDandPasswords idandPasswords = new IDandPasswords();
         MainLibraryPage aaa = new MainLibraryPage();
         //CreateGamePage nwe = new CreateGamePage();
     }
 
+    
 
 }
    

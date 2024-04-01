@@ -3,7 +3,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.HashMap;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -143,7 +143,7 @@ public class BecomeDevPage implements ActionListener{
                 MainLibraryPage mainLibraryPage = new MainLibraryPage(devID, 1);
 
                 //PUTTING INFO ABOUT DEVELOPER TO DATABASE
-                IDandPasswords.loginDev.put(devID, devPassword);
+                IDandPasswords.loginPasswordDev.put(devID, new Pair<>(devPassword, aa));
                 
             }
             else{

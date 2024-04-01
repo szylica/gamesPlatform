@@ -17,9 +17,9 @@ public class Developer extends Client {
         developerCounter++;
     }
 
-    public void createGame(String gameName){
+    public void createGame(String gameName, String description, double prize){
         
-        Game newGame = new Game(MainLibraryPage.actuallyLogged, gameName);
+        Game newGame = new Game(MainLibraryPage.actuallyLogged, gameName, description, prize);
 
     }
 }

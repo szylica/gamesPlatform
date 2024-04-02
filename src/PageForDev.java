@@ -31,7 +31,9 @@ public class PageForDev extends JFrame implements ActionListener{
 
         HomeButton homeButton = new HomeButton();
 
-        userIDLabel.setBounds(2200,55, 200, 25);
+        SettingsButton settingsButton = new SettingsButton(2350, 55, 30, 30);
+
+        userIDLabel.setBounds(2150,55, 200, 25);
         userIDLabel.setFont(new Font(null, Font.PLAIN, 20));
         userIDLabel.setForeground((Color.green));
         userIDLabel.setText("Hello dev " + userID);
@@ -39,6 +41,7 @@ public class PageForDev extends JFrame implements ActionListener{
         add(addGameButton);
         add(logOutButton);
         add(homeButton);
+        add(settingsButton);
         add(userIDLabel);
 
         setLayout(null);

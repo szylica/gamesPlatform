@@ -26,9 +26,13 @@ public class Game implements ActionListener{
 
     JLabel titleLabel = new JLabel("");
     JLabel gameDeveloperLabel = new JLabel("");
-    JLabel descriptionLabel = new JLabel("");
+    JTextArea descriptionTextArea = new JTextArea ("");
+    JLabel prizeLabel = new JLabel("");
     
     JPanel gamePanel = new JPanel();
+    JPanel prizePanel = new JPanel();
+
+    JButton buyButton = new JButton("Buy");
 
     public Game(String developer, String name, String description, double prize){
 
@@ -52,40 +56,76 @@ public class Game implements ActionListener{
         gameDeveloperLabel.setText("Game developer: "+ this.developer);
         gameDeveloperLabel.setForeground(Color.white);
         gameDeveloperLabel.setFont(new Font(gameDeveloperLabel.getFont().getName(), Font.PLAIN, 15));
-        
+
         titleLabel.setText(this.name);
         titleLabel.setForeground(Color.white);
         titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.PLAIN, 50));
 
-        descriptionLabel.setText(this.description);
-        descriptionLabel.setBounds(200, 600, 1000,1000);
-        descriptionLabel.setForeground(Color.white);
-        descriptionLabel.setFont(new Font(descriptionLabel.getFont().getName(), Font.PLAIN, 35));
+        descriptionTextArea.setText(this.description);
+        descriptionTextArea.setForeground(Color.white); //TEXT COLOR
+        descriptionTextArea.setFont(new Font(descriptionTextArea.getFont().getName(), Font.PLAIN, 35)); //FONT AND TEXT SIZE
+        descriptionTextArea.setLineWrap(true); //AUTOADJUSTING TEXT
+        descriptionTextArea.setWrapStyleWord(true); //AUTOADJUSTING TEXT
+        descriptionTextArea.setBackground(Color.gray); //BACKGROUND COLOR - GRAY
+        descriptionTextArea.setEditable(false); // BLOCKING CHANGING ANYTHING IN TEXTAREA
+        descriptionTextArea.setCursor(null); // HIDE CURSOR
+        descriptionTextArea.setBorder(null); //BORDERLESS TEXTAREA
+
+
+        JScrollPane scrollPane = new JScrollPane(descriptionTextArea);
 
         gamePanel.add(gameDeveloperLabel);
         gamePanel.add(titleLabel);
-        gamePanel.add(descriptionLabel);
+        gamePanel.add(scrollPane); // Dodajemy JScrollPane z JTextArea
+        gamePanel.add(Box.createRigidArea(new Dimension(0, 300)));
+       
+        
+
+        prizeLabel.setFont(new Font(descriptionTextArea.getFont().getName(), Font.PLAIN, 35));
+        prizeLabel.setText("Prize: "+ this.prize);
+        
+
+        prizePanel.setBackground(Color.lightGray);
+        prizePanel.setBounds(1750,950,300,100);
+        prizePanel.setLayout(new BoxLayout(prizePanel, BoxLayout.Y_AXIS));
+
+        prizePanel.add(Box.createRigidArea(new Dimension(70,20)));
+        prizePanel.add(prizeLabel);      
+
+        buyButton.setBounds(1800,1030,200,40);
+        buyButton.setBackground(Color.GREEN.darker());
+
 
         
         if(!MainLibraryPage.isLogged){
 
             PageForLoggedOut frame = new PageForLoggedOut();
             FrameManager.addFrame(frame);
+            buyButton.setEnabled(false);
+            buyButton.setText("Log In to buy");
+            frame.add(buyButton);
             frame.add(gamePanel);
+            frame.add(prizePanel);
 
         }
         else if (MainLibraryPage.isLogged && MainLibraryPage.devOrUser == "user"){
 
             PageForUser frame = new PageForUser(MainLibraryPage.actuallyLogged);
             FrameManager.addFrame(frame);
+            frame.add(buyButton);
             frame.add(gamePanel);
+            frame.add(prizePanel);
 
         }
         else if (MainLibraryPage.isLogged && MainLibraryPage.devOrUser == "dev"){
 
             PageForDev frame = new PageForDev(MainLibraryPage.actuallyLogged);
             FrameManager.addFrame(frame);
+            buyButton.setEnabled(false);
+            buyButton.setText("Change account to buy");
+            frame.add(buyButton);
             frame.add(gamePanel);
+            frame.add(prizePanel);
 
         }
 
@@ -137,7 +177,12 @@ public class Game implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if(e.getSource() == buyButton){
+            User user = IDandPasswords.loginPasswordUser.get(MainLibraryPage.actuallyLogged).getSecondValue();
+            if(user.accBalance >= this.prize){
+                user.addGameToLibrary(this);
+            }
+        }
     }
 
 }

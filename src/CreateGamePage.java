@@ -81,6 +81,7 @@ public class CreateGamePage implements ActionListener {
             
                 FrameManager.closeAllFrames();
                 Game newGame = new Game(MainLibraryPage.actuallyLogged, gameNameField.getText(), gameDescriptionTArea.getText(), Double.parseDouble(gamePrizeField.getText()));
+                newGame.initialize();
                 MainLibraryPage.games.add(newGame);
             
             }

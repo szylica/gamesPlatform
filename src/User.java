@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class User extends Client {
 
     static int userCounter;
-    double accBalance;
+    double accBalance = 0.00;
     ArrayList<Game> userLibrary = new ArrayList<>();
     
 
@@ -27,6 +27,9 @@ public class User extends Client {
         System.out.println(founds + "has been added to your account");
     }
     
+    public void addGameToLibrary(Game game){
+        this.userLibrary.add(game);
+    }
 
 
 }

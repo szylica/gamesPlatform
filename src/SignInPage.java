@@ -39,7 +39,7 @@ public class SignInPage implements ActionListener{
         userPasswordLabel.setBounds(50, 200, 75, 25);
         userPasswordConfirmLabel.setBounds(50, 250, 75, 25);
 
-        messageLabel.setBounds(50,325, 350, 35);
+        messageLabel.setBounds(50,325, 400, 35);
         messageLabel.setFont(new Font(null, Font.ITALIC, 25));
 
         //Fields settings on Sign In Page
@@ -70,7 +70,6 @@ public class SignInPage implements ActionListener{
         frame.add(userLastNameField);
         frame.add(userPasswordField);
         frame.add(userPasswordConfirmField);
-        frame.add(messageLabel);
         frame.add(messageLabel);
         frame.add(registerButton);
         frame.add(resetButton);
@@ -124,8 +123,9 @@ public class SignInPage implements ActionListener{
 
                         
                     FrameManager.closeAllFrames();
-                    MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
                     IDandPasswords.loginPasswordUser.put(userID, new Pair<>(userPassword, aa));
+                    MainLibraryPage mainLibraryPage = new MainLibraryPage(userID);
+                    
                 }
                 else{
                     messageLabel.setForeground(Color.red);
@@ -135,7 +135,7 @@ public class SignInPage implements ActionListener{
 
             else {
                 messageLabel.setForeground(Color.red);
-                messageLabel.setText("This username is already taken");
+                messageLabel.setText("All fields have to be filled");
             }
         }
 

@@ -38,6 +38,9 @@ public class MainLibraryPage implements ActionListener{
 
     //CONSTRUCTOR FOR MAIN PAG FOR LOGGED USER
     public MainLibraryPage(String userID){
+        isLogged = true;
+        devOrUser = "user";
+        actuallyLogged = userID;
         
         PageForUser frame = new PageForUser(userID);
         FrameManager.addFrame(frame);
@@ -52,14 +55,15 @@ public class MainLibraryPage implements ActionListener{
         frame.add(gamesPanel);
 
 
-        isLogged = true;
-        devOrUser = "user";
-        actuallyLogged = userID;
     }
 
     //Developer main page constructor
     //int devveloper variable only for recognize which contructor to use, user or dev
     public MainLibraryPage(String userID, int developer){
+        isLogged = true;
+        devOrUser = "dev";
+        actuallyLogged = userID;
+        
         PageForDev frame = new PageForDev(userID);
         FrameManager.addFrame(frame);
 
@@ -71,9 +75,6 @@ public class MainLibraryPage implements ActionListener{
 
         frame.add(gamesPanel);
 
-        isLogged = true;
-        devOrUser = "dev";
-        actuallyLogged = userID;
     }
 
     //CREATING BUTTONS ON THE PAGE FOR ALL GAMES WHICH ARE IN THE SHOP

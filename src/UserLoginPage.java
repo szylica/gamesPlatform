@@ -40,7 +40,7 @@ public class UserLoginPage implements ActionListener{
         userIDLabel.setBounds(50, 100, 75, 25);
         userPasswordLabel.setBounds(50, 150, 75, 25);
 
-        messageLabel.setBounds(125,250, 250, 35);
+        messageLabel.setBounds(125,300, 250, 35);
         messageLabel.setFont(new Font(null, Font.ITALIC, 25));
 
         userIDField.setBounds(125, 100, 200, 25);
@@ -60,8 +60,6 @@ public class UserLoginPage implements ActionListener{
         frame.add(userIDField);
         frame.add(userPasswordField);
         frame.add(devAccCheckBox);
-        frame.add(messageLabel);
-        frame.add(messageLabel);
         frame.add(loginButton);
         frame.add(resetButton);
 
@@ -86,8 +84,9 @@ public class UserLoginPage implements ActionListener{
             String userPassword = String.valueOf(userPasswordField.getPassword());
 
             if (IDandPasswords.loginPasswordDev.containsKey(userID)){
+                String storedPassword = IDandPasswords.loginPasswordDev.get(userID).getFirstValue();
 
-                if (IDandPasswords.loginPasswordDev.get(userID).equals(userPassword)){
+                if (storedPassword.equals(userPassword)){
 
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");
@@ -114,7 +113,8 @@ public class UserLoginPage implements ActionListener{
             String userPassword = String.valueOf(userPasswordField.getPassword());
 
             if (IDandPasswords.loginPasswordUser.containsKey(userID)){
-                if (IDandPasswords.loginPasswordUser.get(userID).equals(userPassword)){
+                String storedPassword = IDandPasswords.loginPasswordUser.get(userID).getFirstValue();
+                if (storedPassword.equals(userPassword)){
 
                     messageLabel.setForeground(Color.green);
                     messageLabel.setText("Login successful");

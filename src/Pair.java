@@ -12,7 +12,15 @@ public class Pair<A, B> {
         return firstValue;
     }
 
+    public void setFirstValue(A temp){
+        this.firstValue = temp;
+    }
+
     public B getSecondValue() {
         return secondValue;
+    }
+
+    public void setSecondValue(B temp){
+        this.secondValue = temp;
     }
 }

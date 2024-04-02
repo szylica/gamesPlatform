@@ -48,7 +48,7 @@ public class BecomeDevPage implements ActionListener{
         devPasswordLabel.setBounds(50, 275, 75, 25);
         devPasswordConfirmLabel.setBounds(50, 325, 75, 25);
 
-        messageLabel.setBounds(125,250, 250, 35);
+        messageLabel.setBounds(75,400, 350, 35);
         messageLabel.setFont(new Font(null, Font.ITALIC, 25));
 
         //Fields settings on Sign In Page
@@ -119,42 +119,44 @@ public class BecomeDevPage implements ActionListener{
             String devAddress = devAddressField.getText();
         
             
+            if (!devID.isEmpty() || !devName.isEmpty() || !devLastName.isEmpty() || !devCompany.isEmpty() || !devAddress.isEmpty()){
             //testing if passwords are the same
-            if(Arrays.equals(devPasswordField.getPassword(), devPasswordConfirmField.getPassword())){
+                if(Arrays.equals(devPasswordField.getPassword(), devPasswordConfirmField.getPassword())){
 
-                String devPassword = String.valueOf(devPasswordField.getPassword());
+                    String devPassword = String.valueOf(devPasswordField.getPassword());
 
-                //CLOSING ALL EXISTING WINDOWS(FRAMES)
-                FrameManager.closeAllFrames();
+                    //CLOSING ALL EXISTING WINDOWS(FRAMES)
+                    FrameManager.closeAllFrames();
 
-                Developer aa = new Developer(devName, devLastName, devID, devPassword, devCompany, devAddress);
+                    Developer aa = new Developer(devName, devLastName, devID, devPassword, devCompany, devAddress);
 
-                //ANNOUNCEMENT
-                messageLabel.setForeground(Color.green);
-                messageLabel.setText("Login successful");
+                    //ANNOUNCEMENT
+                    messageLabel.setForeground(Color.green);
+                    messageLabel.setText("Login successful");
 
 
-                //CHANGING GLOBAL VARIABLES
-                MainLibraryPage.isLogged = true;
-                MainLibraryPage.actuallyLogged = devID;
-                MainLibraryPage.devOrUser = "dev";
+                    //CHANGING GLOBAL VARIABLES
+                    MainLibraryPage.isLogged = true;
+                    MainLibraryPage.actuallyLogged = devID;
+                    MainLibraryPage.devOrUser = "dev";
 
-                //OPENING MAIN WINDOW
-                MainLibraryPage mainLibraryPage = new MainLibraryPage(devID, 1);
+                    //OPENING MAIN WINDOW
+                    MainLibraryPage mainLibraryPage = new MainLibraryPage(devID, 1);
 
-                //PUTTING INFO ABOUT DEVELOPER TO DATABASE
-                IDandPasswords.loginPasswordDev.put(devID, new Pair<>(devPassword, aa));
-                
+                    //PUTTING INFO ABOUT DEVELOPER TO DATABASE
+                    IDandPasswords.loginPasswordDev.put(devID, new Pair<>(devPassword, aa));
+                    
+                }
+                else{
+                    messageLabel.setForeground(Color.red);
+                    messageLabel.setText("passwords are not the same");
+                }
             }
             else{
-                messageLabel.setForeground(Color.red);
-                messageLabel.setText("passwords are not the same");
+            messageLabel.setForeground(Color.red);
+            messageLabel.setText("All fields have to be filled");
             }
 
-            
-
-
-            
         }
         
     }
